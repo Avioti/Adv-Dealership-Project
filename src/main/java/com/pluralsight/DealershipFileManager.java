@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 public class DealershipFileManager {
-    private static String filePath = "src/main/resources/inventory.csv";
+    public static String filePath = "src/main/resources/inventory.csv";
 
    public static Dealership getDealership(){
 
