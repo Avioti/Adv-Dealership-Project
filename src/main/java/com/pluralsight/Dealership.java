@@ -79,4 +79,12 @@ public class Dealership {
 
     }
 
+    @Override
+    public String toString() {
+        return "Dealership{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }
