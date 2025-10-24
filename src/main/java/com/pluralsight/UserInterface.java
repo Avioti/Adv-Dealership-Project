@@ -276,6 +276,8 @@ public class UserInterface {
 
 
         for (Vehicle car : dealership.getAllVehicle()) {
+
+
             boolean matches = true;
 
                 try{

@@ -183,10 +183,13 @@ public class Dealership {
 
 
         inventory.remove(vehicle);
-
+        DealershipFileManager.saveDealership(DealershipFileManager.getDealership());
         try {
             BufferedWriter bufWriter = new BufferedWriter(new FileWriter(DealershipFileManager.filePath, false));
-            DealershipFileManager.saveDealership( DealershipFileManager.getDealership());
+
+
+                String dealershipInfo = String.format("%s|%s|%s",this.name,this.address,this.phone);
+                bufWriter.write(dealershipInfo);
 
 
             for (Vehicle car : inventory) {
