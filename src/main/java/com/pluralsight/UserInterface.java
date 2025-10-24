@@ -39,7 +39,7 @@ public class UserInterface {
         System.out.println("6 - Find vehicles by type (car, truck, SUV, van)");
         System.out.println("7 - List ALL vehicles");
         System.out.println("8 - Add a vehicle");
-        System.out.println("9 - Remove a vehicle * NOT FULLY COMPLETE WILL MESS UP THE CSV BUT WILL REMOVE THE CAR*");
+        System.out.println("9 - Remove a vehicle");
         System.out.println("99 - Quit");
     }
 
