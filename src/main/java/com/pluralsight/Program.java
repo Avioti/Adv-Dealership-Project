@@ -7,6 +7,10 @@ public class Program {
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
 
+        UserInterface main = new UserInterface();
+
+        main.display();
+
 
 
 

@@ -8,6 +8,7 @@ import static com.pluralsight.Utility.ifNumber;
 
 public class UserInterface {
     private Dealership dealership;
+    private boolean running = true;
 
 
 
@@ -17,7 +18,7 @@ public class UserInterface {
 
     public void display(){
         init();
-        boolean running = true;
+
 
         while(running){
 
@@ -52,50 +53,63 @@ public class UserInterface {
             int choice = Integer.parseInt(option);
             switch (choice) {
                 case 1:
-
+                    processGetByPriceRequest();
 
 
                     break;
 
                 case 2:
 
-
+                    processGetByMakeModelRequest();
 
                     break;
 
                 case 3:
 
-
+                    processGetByYearRequest();
 
                     break;
 
                 case 4:
 
-
+                processGetByColorRequest();
 
                     break;
 
                 case 5:
 
+                    processGetByMileageRequest();
+
                     break;
 
                 case 6:
+
+                    processGetByVehicleTypeRequest();
 
                     break;
 
                 case 7:
 
+                    processGetAllVehiclesRequest();
+
                     break;
 
                 case 8:
+
+                    processAddVehicleRequest();
 
                     break;
 
                 case 9:
 
+                    processRemoveVehicleRequest();
+
                     break;
 
                 case 99:
+
+                    running = false;
+
 
                     break;
 
@@ -117,12 +131,11 @@ public class UserInterface {
     }
 
     private void displayVehicles(ArrayList<Vehicle> vehicles) {
-            int i = 1;
-        while(i < vehicles.size()){
-            i++;
+           for(Vehicle car : vehicles){
 
-            System.out.println(vehicles.get(i));
-        }
+               System.out.println(car);
+
+           }
 
     }
 
