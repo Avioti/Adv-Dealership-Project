@@ -126,6 +126,7 @@ public class UserInterface {
 
     private void init() {
         dealership = DealershipFileManager.getDealership();
+        System.out.println(DealershipFileManager.getDealership());
     }
 
     private void displayVehicles(ArrayList<Vehicle> vehicles) {
@@ -172,7 +173,8 @@ public class UserInterface {
         int max = scanner.nextInt();
         scanner.nextLine();
 
-        dealership.getVehiclesByYear(min, max);
+        System.out.println(dealership.getVehiclesByYear(min, max));
+
     }
 
     public void processGetByColorRequest() {
