@@ -1,5 +1,7 @@
 package com.pluralsight.ui;
 
+import com.pluralsight.contracts.Contract;
+import com.pluralsight.data.ContractFileManager;
 import com.pluralsight.models.Dealership;
 import com.pluralsight.models.Vehicle;
 import com.pluralsight.data.DealershipFileManager;
@@ -11,6 +13,7 @@ import static com.pluralsight.utility.Utility.ifNumber;
 
 public class UserInterface {
     private Dealership dealership;
+    private ContractFileManager contractFileManager;
     private boolean running = true;
 
 
@@ -327,6 +330,15 @@ public class UserInterface {
 
         }
 
+    }
+
+    public void processSellLease(){
+
+    }
+
+
+    public Contract promptForContractData(){
+        return null;
     }
 
 }
