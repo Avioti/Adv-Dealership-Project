@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.utility;
 
 public class Utility {
     public static void isNumber(String str) {

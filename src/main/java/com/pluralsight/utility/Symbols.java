@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.utility;
 public class Symbols
 {
     public static final String SPADES = "\u2660";

@@ -1,10 +1,10 @@
-package com.pluralsight;
+package com.pluralsight.models;
+
+import com.pluralsight.data.DealershipFileManager;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Dealership {

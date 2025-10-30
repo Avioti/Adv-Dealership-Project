@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import com.pluralsight.ui.UserInterface;
+
 import java.util.Scanner;
 
 public class Program {

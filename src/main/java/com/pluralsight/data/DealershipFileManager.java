@@ -1,8 +1,10 @@
-package com.pluralsight;
+package com.pluralsight.data;
+
+import com.pluralsight.models.Dealership;
+import com.pluralsight.models.Vehicle;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
 
 public class DealershipFileManager {
     public static String filePath = "src/main/resources/inventory.csv";

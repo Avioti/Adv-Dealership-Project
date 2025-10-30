@@ -1,10 +1,13 @@
-package com.pluralsight;
+package com.pluralsight.ui;
+
+import com.pluralsight.models.Dealership;
+import com.pluralsight.models.Vehicle;
+import com.pluralsight.data.DealershipFileManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.pluralsight.Program.scanner;
-import static com.pluralsight.Utility.ifNumber;
+import static com.pluralsight.utility.Utility.ifNumber;
 
 public class UserInterface {
     private Dealership dealership;
