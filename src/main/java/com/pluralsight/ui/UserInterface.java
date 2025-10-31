@@ -1,11 +1,15 @@
 package com.pluralsight.ui;
 
 import com.pluralsight.contracts.Contract;
+import com.pluralsight.contracts.LeaseContract;
+import com.pluralsight.contracts.SalesContract;
 import com.pluralsight.data.ContractFileManager;
 import com.pluralsight.models.Dealership;
 import com.pluralsight.models.Vehicle;
 import com.pluralsight.data.DealershipFileManager;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import static com.pluralsight.Program.scanner;
@@ -37,15 +41,16 @@ public class UserInterface {
     }
 
     public void displayMenu() {
-        System.out.println("1 - Find vehicles within a price range");
-        System.out.println("2 - Find vehicles by make / model");
-        System.out.println("3 - Find vehicles by year range");
-        System.out.println("4 - Find vehicles by color");
-        System.out.println("5 - Find vehicles by mileage range");
-        System.out.println("6 - Find vehicles by type (car, truck, SUV, van)");
-        System.out.println("7 - List ALL vehicles");
-        System.out.println("8 - Add a vehicle");
-        System.out.println("9 - Remove a vehicle");
+        System.out.println("1 - Find Vehicles within a price range");
+        System.out.println("2 - Find Vehicles by make / model");
+        System.out.println("3 - Find Vehicles by year range");
+        System.out.println("4 - Find Vehicles by color");
+        System.out.println("5 - Find Vehicles by mileage range");
+        System.out.println("6 - Find Vehicles by type (car, truck, SUV, van)");
+        System.out.println("7 - List ALL Vehicles");
+        System.out.println("8 - Add a Vehicle");
+        System.out.println("9 - Remove a Vehicle");
+        System.out.println("10 - Sell/Lease a Vehicle");
         System.out.println("99 - Quit");
     }
 
@@ -56,72 +61,29 @@ public class UserInterface {
         if (ifNumber(option)) {
             int choice = Integer.parseInt(option);
             switch (choice) {
-                case 1:
-                    processGetByPriceRequest();
+                case 1 -> processGetByPriceRequest();
 
+                case 2 -> processGetByMakeModelRequest();
 
-                    break;
+                case 3 -> processGetByYearRequest();
 
-                case 2:
+                case 4 -> processGetByColorRequest();
 
-                    processGetByMakeModelRequest();
+                case 5 -> processGetByMileageRequest();
 
-                    break;
+                case 6 -> processGetByVehicleTypeRequest();
 
-                case 3:
+                case 7 -> processGetAllVehiclesRequest();
 
-                    processGetByYearRequest();
+                case 8 -> processAddVehicleRequest();
 
-                    break;
+                case 9 -> processRemoveVehicleRequest();
 
-                case 4:
+                case 10 -> processSellLease();
 
-                    processGetByColorRequest();
+                case 99 -> running = false;
 
-                    break;
-
-                case 5:
-
-                    processGetByMileageRequest();
-
-                    break;
-
-                case 6:
-
-                    processGetByVehicleTypeRequest();
-
-                    break;
-
-                case 7:
-
-                    processGetAllVehiclesRequest();
-
-                    break;
-
-                case 8:
-
-                    processAddVehicleRequest();
-
-                    break;
-
-                case 9:
-
-                    processRemoveVehicleRequest();
-
-                    break;
-
-                case 99:
-
-                    running = false;
-
-
-                    break;
-
-                default:
-
-                    System.out.println("Enter valid option");
-                    break;
-
+                default -> System.out.println("Enter valid option");
 
             }
         } else {
@@ -132,6 +94,7 @@ public class UserInterface {
 
     private void init() {
         dealership = DealershipFileManager.getDealership();
+        contractFileManager = new ContractFileManager();
         System.out.println(DealershipFileManager.getDealership());
     }
 
@@ -224,6 +187,15 @@ public class UserInterface {
 
     }
 
+    public Vehicle processVehicleByVin(int vin){
+        for(Vehicle vehicle : dealership.getAllVehicle()){
+            if(vehicle.getVin() == vin){
+                return vehicle;
+            }
+        }
+        return null;
+    }
+
     public void processAddVehicleRequest() {
 
         System.out.println("Enter Vehicle Details");
@@ -288,56 +260,110 @@ public class UserInterface {
 
             boolean matches = true;
 
-                try{
-                    if (!vin.isBlank() && car.getVin() == Integer.parseInt(vin)) {
-                        matches = false;
-                    }
-                    if (!year.isBlank() && car.getYear() == Integer.parseInt(year)) {
-                        matches = false;
-                    }
-                    if (!make.isBlank() && !car.getMake().equalsIgnoreCase(make)) {
-                        matches = false;
-                    }
-                    if (!model.isBlank() && !car.getModel().equalsIgnoreCase(model)) {
-                        matches = false;
-                    }
-                    if (!vehicleType.isBlank() && !car.getVehicleType().equalsIgnoreCase(vehicleType)) {
-                        matches = false;
-                    }
-                    if (!color.isBlank() && !car.getColor().equalsIgnoreCase(color)) {
-                        matches = false;
-                    }
-                    if (!odometer.isBlank() && car.getOdometer() != Integer.parseInt(odometer)) {
-                        matches = false;
-                    }
-                    if (!price.isBlank() && car.getPrice() != Double.parseDouble(price)) {
-                        matches = false;
-                    }
-
-
+            try {
+                if (!vin.isBlank() && car.getVin() == Integer.parseInt(vin)) {
+                    matches = false;
                 }
-                catch (Exception e){
-
-                        e.printStackTrace();
+                if (!year.isBlank() && car.getYear() == Integer.parseInt(year)) {
+                    matches = false;
+                }
+                if (!make.isBlank() && !car.getMake().equalsIgnoreCase(make)) {
+                    matches = false;
+                }
+                if (!model.isBlank() && !car.getModel().equalsIgnoreCase(model)) {
+                    matches = false;
+                }
+                if (!vehicleType.isBlank() && !car.getVehicleType().equalsIgnoreCase(vehicleType)) {
+                    matches = false;
+                }
+                if (!color.isBlank() && !car.getColor().equalsIgnoreCase(color)) {
+                    matches = false;
+                }
+                if (!odometer.isBlank() && car.getOdometer() != Integer.parseInt(odometer)) {
+                    matches = false;
+                }
+                if (!price.isBlank() && car.getPrice() != Double.parseDouble(price)) {
+                    matches = false;
                 }
 
 
-                if (matches) {
-                    dealership.removeVehicle(car);
-                    System.out.println("Vehicle removed.");
-                }
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+
+            if (matches) {
+                dealership.removeVehicle(car);
+                System.out.println("Vehicle removed.");
+            }
 
 
         }
 
     }
 
-    public void processSellLease(){
+    public void processSellLease() {
+        System.out.println("Hello Thank you for inquiring before we move forward please answer the following questions.");
+        System.out.println("Will you be Purchasing or Leasing this Vehicle?");
+        System.out.println("1 - Buying");
+        System.out.println("2 - Leasing");
+        int option = scanner.nextInt();
+        scanner.nextLine();
+        switch (option){
+            case 1 -> {
+                System.out.print("Today's Date: ");
+                String date = scanner.nextLine();
+                System.out.print("What is your name: ");
+                String name = scanner.nextLine();
+                System.out.print("Your Email: ");
+                String email = scanner.nextLine();
+                System.out.println("What vehicle are you interested in?");
+                System.out.print("Enter Vin #: ");
+                int vin = scanner.nextInt();
+                scanner.nextLine();
+                Vehicle vehicle = processVehicleByVin(vin);
+                System.out.println("Will you be Financing? (Y/N)");
+                if(scanner.nextLine().equalsIgnoreCase("y")){
+                    contractFileManager.saveContract( new SalesContract(date,name,email,vehicle,true));
+                }else{
+                    contractFileManager.saveContract(new SalesContract(date,name,email,vehicle,false));
+                }
+                dealership.removeVehicle(vehicle);
+            }
+            case 2 -> {
+                int currentDate = LocalDateTime.now().getYear();
+                System.out.print("Today's Date: ");
+                String date = scanner.nextLine();
+                System.out.print("What is your name: ");
+                String name = scanner.nextLine();
+                System.out.print("Your Email: ");
+                String email = scanner.nextLine();
+                System.out.println("What vehicle are you interested in?");
+                System.out.print("Enter Vin #: ");
+                int vin = scanner.nextInt();
+                scanner.nextLine();
+                Vehicle vehicle = processVehicleByVin(vin);
+                int age = currentDate - vehicle.getYear();
+                if(age < 3){
+                    System.out.println("Sorry cannot lease this Vehicle");
+                    break;
+                }
+                contractFileManager.saveContract(new LeaseContract(date,name,email,vehicle));
+                dealership.removeVehicle(vehicle);
+
+            }
+        }
 
     }
 
 
-    public Contract promptForContractData(){
+    public Contract promptForContractData() {
+
+
+
+
+
         return null;
     }
 
