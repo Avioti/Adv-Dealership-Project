@@ -24,7 +24,22 @@ public class SalesContract extends Contract {
         return processingFee;
     }
 
-    public boolean wantsFinance() {
+    public String wantsFinance(Boolean financed) {
+        String finance;
+        if(financed){
+            finance = "YES";
+        }else{
+            finance = "NO";
+        }
+
+        return finance;
+    }
+
+    public double getRecordingFee() {
+        return recordingFee;
+    }
+
+    public boolean isFinanceOption() {
         return financeOption;
     }
 
