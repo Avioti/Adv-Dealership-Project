@@ -187,9 +187,9 @@ public class UserInterface {
 
     }
 
-    public Vehicle processVehicleByVin(int vin){
-        for(Vehicle vehicle : dealership.getAllVehicle()){
-            if(vehicle.getVin() == vin){
+    public Vehicle processVehicleByVin(int vin) {
+        for (Vehicle vehicle : dealership.getAllVehicle()) {
+            if (vehicle.getVin() == vin) {
                 return vehicle;
             }
         }
@@ -305,51 +305,45 @@ public class UserInterface {
 
     public void processSellLease() {
         System.out.println("Hello Thank you for inquiring before we move forward please answer the following questions.");
+        System.out.print("Today's Date: ");
+        String date = scanner.nextLine();
+
+        System.out.print("What is your name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Your Email: ");
+        String email = scanner.nextLine();
+
+        System.out.println("What vehicle are you interested in?");
+        System.out.print("Enter Vin #: ");
+        int vin = scanner.nextInt();
+        scanner.nextLine();
+        Vehicle vehicle = processVehicleByVin(vin);
+
         System.out.println("Will you be Purchasing or Leasing this Vehicle?");
         System.out.println("1 - Buying");
         System.out.println("2 - Leasing");
         int option = scanner.nextInt();
         scanner.nextLine();
-        switch (option){
+        switch (option) {
             case 1 -> {
-                System.out.print("Today's Date: ");
-                String date = scanner.nextLine();
-                System.out.print("What is your name: ");
-                String name = scanner.nextLine();
-                System.out.print("Your Email: ");
-                String email = scanner.nextLine();
-                System.out.println("What vehicle are you interested in?");
-                System.out.print("Enter Vin #: ");
-                int vin = scanner.nextInt();
-                scanner.nextLine();
-                Vehicle vehicle = processVehicleByVin(vin);
+
                 System.out.println("Will you be Financing? (Y/N)");
-                if(scanner.nextLine().equalsIgnoreCase("y")){
-                    contractFileManager.saveContract( new SalesContract(date,name,email,vehicle,true));
-                }else{
-                    contractFileManager.saveContract(new SalesContract(date,name,email,vehicle,false));
+                if (scanner.nextLine().equalsIgnoreCase("y")) {
+                    contractFileManager.saveContract(new SalesContract(date, name, email, vehicle, true));
+                } else {
+                    contractFileManager.saveContract(new SalesContract(date, name, email, vehicle, false));
                 }
                 dealership.removeVehicle(vehicle);
             }
             case 2 -> {
                 int currentDate = LocalDateTime.now().getYear();
-                System.out.print("Today's Date: ");
-                String date = scanner.nextLine();
-                System.out.print("What is your name: ");
-                String name = scanner.nextLine();
-                System.out.print("Your Email: ");
-                String email = scanner.nextLine();
-                System.out.println("What vehicle are you interested in?");
-                System.out.print("Enter Vin #: ");
-                int vin = scanner.nextInt();
-                scanner.nextLine();
-                Vehicle vehicle = processVehicleByVin(vin);
                 int age = currentDate - vehicle.getYear();
-                if(age < 3){
+                if (age > 3) {
                     System.out.println("Sorry cannot lease this Vehicle");
                     break;
                 }
-                contractFileManager.saveContract(new LeaseContract(date,name,email,vehicle));
+                contractFileManager.saveContract(new LeaseContract(date, name, email, vehicle));
                 dealership.removeVehicle(vehicle);
 
             }
@@ -359,9 +353,6 @@ public class UserInterface {
 
 
     public Contract promptForContractData() {
-
-
-
 
 
         return null;
